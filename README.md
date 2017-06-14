@@ -29,4 +29,4 @@ When you are in service, press [F6] in-game to bring the menu
 
 1) Import esx_garagecompany.sql in your database
 2) Copy folders in cfx-server/ressources/[companies]
-3) Load esx_eventcompany in your citmp-server.yml
+3) Load esx_garagecompany in your citmp-server.yml
