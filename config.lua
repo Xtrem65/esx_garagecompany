@@ -5,6 +5,9 @@ Config.CompanyName = "Depann'Express"
 Config.HasEmergencyPhoneLine = true
 Config.JobName = "garagiste"
 
+Config.EnableVehicleBreakOnDamage = true
+Config.VehicleBreakDamageLimit = 85
+
 Config.AllowListedUsersOnly = true
 
 Config.AllowedUsers = {

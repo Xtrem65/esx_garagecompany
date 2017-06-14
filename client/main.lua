@@ -528,16 +528,18 @@ end
 
 
 Citizen.CreateThread(function()
-	while true do
-	Citizen.Wait(0)
-		local ped = GetPlayerPed(-1)
-		local vehicle = GetVehiclePedIsUsing(ped)
-		local damage = GetVehHealthPercent(vehicle)
-		if IsPedInAnyVehicle(ped, false) then
-			SetPlayerVehicleDamageModifier(PlayerId(), 100) -- Seems to not work at the moment --
-			if damage < 85 then
-				SetVehicleUndriveable(vehicle, true)
-				ShowNotification("~g~Votre véhicule est trop endommagé.")
+	if (Config.EnableVehicleBreakOnDamage == true)then
+		while true do
+		Citizen.Wait(0)
+			local ped = GetPlayerPed(-1)
+			local vehicle = GetVehiclePedIsUsing(ped)
+			local damage = GetVehHealthPercent(vehicle)
+			if IsPedInAnyVehicle(ped, false) then
+				SetPlayerVehicleDamageModifier(PlayerId(), 100) -- Seems to not work at the moment --
+				if damage < Config.VehicleBreakDamageLimit then
+					SetVehicleUndriveable(vehicle, true)
+					ShowNotification("~g~Votre véhicule est trop endommagé.")
+				end
 			end
 		end
 	end
