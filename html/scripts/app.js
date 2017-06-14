@@ -192,7 +192,7 @@
 
 			if(isShowingControls){
 
-				$.post('http://esx_garagejob/select_control', JSON.stringify({
+				$.post('http://esx_garagecompany/select_control', JSON.stringify({
 					control: currentControl,
 				}))
 
@@ -201,7 +201,7 @@
 			
 			} else if(isMenuOpen) {
 
-                $.post('http://esx_garagejob/select', JSON.stringify({
+                $.post('http://esx_garagecompany/select', JSON.stringify({
                     menu : currentMenu,
                     val  : currentVal,
                     type : currentType,
