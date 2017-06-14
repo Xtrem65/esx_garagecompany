@@ -15,70 +15,6 @@ local GUI                         = {}
 GUI.Time                          = 0
 local hasAlreadyEnteredMarker     = false;
 local lastZone                    = nil;
-local AmbulanceMenuTargetPlayerId = nil;
-local IsAlreadyDead               = false;
-
-function GetClosestPlayerInArea(positions, radius)
-
-	local playerPed             = GetPlayerPed(-1)
-	local playerServerId        = GetPlayerServerId(PlayerId())
-	local playerCoords          = GetEntityCoords(playerPed)
-	local closestPlayer         = -1
-	local closestDistance       = math.huge
-
-	for k, v in pairs(positions) do
-
-   if tonumber(k) ~= playerServerId then
-      
-      local otherPlayerCoords = positions[k]
-      local distance          = GetDistanceBetweenCoords(playerCoords.x, playerCoords.y, playerCoords.z, otherPlayerCoords.x, otherPlayerCoords.y, otherPlayerCoords.z, true)
-
-      if distance <= radius and distance < closestDistance then
-      	closestPlayer   = tonumber(k)
-      	closestDistance = distance
-      end
-   	end
-  end
-
-  return closestPlayer
-
-end
-
-function GetClosestPlayerInAreaNotInAnyVehicle(positions, radius)
-
-	local playerPed             = GetPlayerPed(-1)
-	local playerServerId        = GetPlayerServerId(PlayerId())
-	local playerCoords          = GetEntityCoords(playerPed)
-	local closestPlayer         = -1
-	local closestDistance       = math.huge
-
-	for k, v in pairs(positions) do
-
-    if tonumber(k) ~= playerServerId then
-      
-      local otherPlayerPed    = GetPlayerPed(GetPlayerFromServerId(tonumber(k)))
-      local otherPlayerCoords = positions[k]
-      local distance          = GetDistanceBetweenCoords(playerCoords.x, playerCoords.y, playerCoords.z, otherPlayerCoords.x, otherPlayerCoords.y, otherPlayerCoords.z, true)
-
-      if distance <= radius and distance < closestDistance and not IsPedInAnyVehicle(otherPlayerPed,  false) then
-      	closestPlayer   = tonumber(k)
-      	closestDistance = distance
-      end
-   	end
-  end
-
-  return closestPlayer
-
-end
-
-function respawnPed(ped,coords)
-	SetEntityCoordsNoOffset(ped, coords.x, coords.y, coords.z, false, false, false, true)
-	NetworkResurrectLocalPlayer(coords.x, coords.y, coords.z, coords.heading, true, false) 
-	SetPlayerInvincible(ped, false) 
-	TriggerEvent('playerSpawned', coords.x, coords.y, coords.z, coords.heading)
-	ClearPedBloodDamage(ped)
-	IsAlreadyDead = false
-end
 
 AddEventHandler('playerSpawned', function(spawn)
 	TriggerServerEvent('esx_garagejob:requestPlayerData', 'playerSpawned')
@@ -211,10 +147,12 @@ RegisterNUICallback('select_control', function(data, cb)
 
 end)
 function isAllowed()
-	for k,v in pairs(Config.AllowedUsers) do
-        if (v.identifier == PlayerData.identifier) then
-            return  true
-        end
+	if Config.AllowListedUsersOnly == true then
+		for k,v in pairs(Config.AllowedUsers) do
+			if (v.identifier == PlayerData.identifier) then
+				return  true
+			end
+		end
 	end
 	return false
 end

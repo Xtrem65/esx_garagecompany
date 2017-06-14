@@ -5,14 +5,10 @@ Config.CompanyName = "Depann'Express"
 Config.HasEmergencyPhoneLine = true
 Config.JobName = "garagiste"
 
+Config.AllowListedUsersOnly = true
+
 Config.AllowedUsers = {
-	{identifier="steam:1100001027eec05", grade=0},
-	{identifier="steam:110000105758b0d", grade=0},
-	{identifier="steam:1100001077da68f", grade=5}, -- Biruk
-	{identifier="steam:110000109bd9d1c", grade=0},
-	{identifier="steam:11000010aeaf961", grade=0},
-	{identifier="steam:11000010e95e3ad", grade=0},
-	{identifier="steam:1100001047c07d7", grade=3}, -- Jean Lapiece (DEBUG)
+	{identifier="steam:1100001047c07d7", grade=3}, -- Debugger
 }
 Config.MaleSkin = {
 	['0'] = '{"pants_2":0,"arms":11,"beard_4":0,"pants_1":36,"sex":0,"tshirt_1":59,"hair_1":9,"hair_color_2":0,"decals_1":0,"decals_2":0,"helmet_2":0,"torso_1":95,"tshirt_2":0,"glasses_2":0,"torso_2":0,"hair_2":0,"beard_3":0,"glasses_1":0,"helmet_1":8,"shoes":12}',
